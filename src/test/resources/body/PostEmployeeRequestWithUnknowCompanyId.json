@@ -1,0 +1,10 @@
+{
+  "firstName": "Тест",
+  "lastName": "Тестов",
+  "middleName": "Тестович",
+  "companyId": 10,
+  "email": "test@test.test",
+  "url": "https://test.test.ru",
+  "phone": "+79998887766",
+  "isActive": true
+}

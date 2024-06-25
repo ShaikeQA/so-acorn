@@ -1,0 +1,11 @@
+<!--
+Если это не добавить, то ajcore будет
+генератировать файлы с ошибками в корень проекта
+https://github.com/allure-framework/allure-gradle/issues/87
+ -->
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <aspects>
+        <include within="io.qameta.allure..*" />
+    </aspects>
+</aspectj>

@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.time.OffsetDateTime;
 @ToString
 @EqualsAndHashCode
 @Entity
+@Accessors(chain = true)
 @Table(name = "employee")
 public class EmployeeEntity {
     @Id
@@ -28,12 +30,12 @@ public class EmployeeEntity {
     private Boolean isActive = false;
 
     @ColumnDefault("now()")
-    @Column(name = "create_timestamp", nullable = false)
-    private OffsetDateTime createTimestamp;
+    @Column(name = "create_timestamp")
+    private OffsetDateTime createTimestamp = OffsetDateTime.now();
 
     @ColumnDefault("now()")
-    @Column(name = "change_timestamp", nullable = false)
-    private OffsetDateTime changeTimestamp;
+    @Column(name = "change_timestamp")
+    private OffsetDateTime changeTimestamp = OffsetDateTime.now();
 
     @Column(name = "first_name", nullable = false, length = 20)
     private String firstName;

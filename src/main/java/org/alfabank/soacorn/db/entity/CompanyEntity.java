@@ -1,16 +1,20 @@
 package org.alfabank.soacorn.db.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
 import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
+@Accessors(chain = true)
 @Entity
 @Table(name = "company")
 public class CompanyEntity {
@@ -22,15 +26,15 @@ public class CompanyEntity {
 
     @ColumnDefault("true")
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive = false;
+    private Boolean isActive;
 
     @ColumnDefault("now()")
-    @Column(name = "create_timestamp", nullable = false)
-    private OffsetDateTime createTimestamp;
+    @Column(name = "create_timestamp")
+    private OffsetDateTime createTimestamp = OffsetDateTime.now();
 
     @ColumnDefault("now()")
-    @Column(name = "change_timestamp", nullable = false)
-    private OffsetDateTime changeTimestamp;
+    @Column(name = "change_timestamp")
+    private OffsetDateTime changeTimestamp = OffsetDateTime.now();
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -39,6 +43,6 @@ public class CompanyEntity {
     private String description;
 
     @Column(name = "deleted_at")
-    private Instant deletedAt;
+    private OffsetDateTime deletedAt;
 
 }
