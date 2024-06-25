@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("POST:/employee")
 @Owner("Кшнякин Ринат")
 @SpringBootTest
-class EmployeeTest {
+class EmployeeTests {
 
     ObjectMapper mapper = new ObjectMapper();
 

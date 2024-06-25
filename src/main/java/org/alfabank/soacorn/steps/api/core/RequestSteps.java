@@ -53,7 +53,7 @@ public class RequestSteps {
      * @param expectedStatusCode   Ожидаемый http код ответа.
      * @param responseClass        Класс, в который нужно преобразовать ответ. Например: AnyClassPojo.class
      * @return Объект класса responseClass.
-     * @throws Exception при возникновении исключения. Вызов метода JUnit5 fail().
+     * При возникновении исключения. Вызов метода JUnit5 fail().
      *                   Тест прекращает работу и будет отмечен как не пройденный
      */
     public <T> T execute(Method method, String url, RequestSpecification requestSpecification, int expectedStatusCode, Class<T> responseClass) {
@@ -82,7 +82,7 @@ public class RequestSteps {
      * @param requestSpecification Подготовленный запрос c помощью билдера RequestSpecification.
      * @param expectedStatusCode   Ожидаемый http код ответа.
      * @return Объект класса Response.class.
-     * @throws Exception при возникновении исключения. Вызов метода JUnit5 fail().
+     * При возникновении исключения. Вызов метода JUnit5 fail().
      *                   Тест прекращает работу и будет отмечен как не пройденный
      */
     public Response execute(Method method, String url, RequestSpecification requestSpecification, int expectedStatusCode) {
