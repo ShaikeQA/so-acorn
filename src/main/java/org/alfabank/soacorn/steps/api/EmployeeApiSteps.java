@@ -1,7 +1,6 @@
 package org.alfabank.soacorn.steps.api;
 
 import io.qameta.allure.Allure;
-import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
@@ -9,16 +8,13 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.RequiredArgsConstructor;
-import org.alfabank.soacorn.pojo.companyController.GetCompanyResponsePojo;
-import org.alfabank.soacorn.pojo.employeeController.GetEmployeeResponsePojo;
-import org.alfabank.soacorn.pojo.employeeController.PostEmployeErrorResponsePojo;
-import org.alfabank.soacorn.pojo.employeeController.PostEmployeeRequestPojo;
+import org.alfabank.soacorn.pojo.employee.GetEmployeeResponsePojo;
+import org.alfabank.soacorn.pojo.employee.PostEmployeErrorResponsePojo;
+import org.alfabank.soacorn.pojo.employee.PostEmployeeRequestPojo;
 import org.alfabank.soacorn.steps.api.core.RequestSteps;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;

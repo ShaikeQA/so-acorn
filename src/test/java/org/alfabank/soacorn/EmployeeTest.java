@@ -6,10 +6,9 @@ import org.alfabank.soacorn.db.entity.CompanyEntity;
 import org.alfabank.soacorn.db.entity.EmployeeEntity;
 import org.alfabank.soacorn.db.repository.CompanyRepository;
 import org.alfabank.soacorn.db.repository.EmployeeRepository;
-import org.alfabank.soacorn.pojo.employeeController.GetEmployeeResponsePojo;
-import org.alfabank.soacorn.pojo.employeeController.PostEmployeErrorResponsePojo;
-import org.alfabank.soacorn.pojo.employeeController.PostEmployeeRequestPojo;
-import org.alfabank.soacorn.steps.api.CompanyApiSteps;
+import org.alfabank.soacorn.pojo.employee.GetEmployeeResponsePojo;
+import org.alfabank.soacorn.pojo.employee.PostEmployeErrorResponsePojo;
+import org.alfabank.soacorn.pojo.employee.PostEmployeeRequestPojo;
 import org.alfabank.soacorn.steps.api.EmployeeApiSteps;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Date;
 import java.util.List;
 
 import static io.qameta.allure.Allure.step;

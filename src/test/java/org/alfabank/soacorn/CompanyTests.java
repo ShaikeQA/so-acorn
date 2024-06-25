@@ -4,7 +4,7 @@ import io.qameta.allure.*;
 import org.alfabank.soacorn.db.entity.CompanyEntity;
 import org.alfabank.soacorn.db.repository.CompanyRepository;
 import org.alfabank.soacorn.db.repository.EmployeeRepository;
-import org.alfabank.soacorn.pojo.companyController.GetCompanyResponsePojo;
+import org.alfabank.soacorn.pojo.company.GetCompanyResponsePojo;
 import org.alfabank.soacorn.steps.api.CompanyApiSteps;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
