@@ -1,8 +1,9 @@
 package org.alfabank.soacorn.db.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Allure;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import org.alfabank.soacorn.db.entity.CompanyEntity;
 import org.alfabank.soacorn.db.entity.EmployeeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -28,4 +29,7 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Intege
     default EmployeeEntity saveEmployee(EmployeeEntity employee) {
         return this.save(employee);
     }
+
+    @Step("Получение всех сотрудников в базе employee с isActive == {isActive}")
+    List<EmployeeEntity> findByIsActive(Boolean isActive);
 }

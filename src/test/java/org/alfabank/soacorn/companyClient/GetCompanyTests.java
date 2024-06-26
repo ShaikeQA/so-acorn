@@ -14,13 +14,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static io.qameta.allure.Allure.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static io.qameta.allure.Allure.step;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Feature("Получение списка компаний")
+@SpringBootTest
+@Epic("X-Clients - Сервис записи на прием к профильным специалистам.")
+@Feature("company - Контроллер")
+@Story("Получить список компаний")
 @DisplayName("GET:/company")
 @Owner("Кшнякин Ринат")
-@SpringBootTest
 class GetCompanyTests {
 
     @Autowired

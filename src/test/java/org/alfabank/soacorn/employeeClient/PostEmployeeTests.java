@@ -19,10 +19,12 @@ import java.nio.file.Path;
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Feature("Создание сотрудника")
+@SpringBootTest
+@Epic("X-Clients - Сервис записи на прием к профильным специалистам.")
+@Feature("employee - Контроллер")
+@Story("Добавить новую компанию")
 @DisplayName("POST:/employee")
 @Owner("Кшнякин Ринат")
-@SpringBootTest
 public class PostEmployeeTests {
 
     ObjectMapper mapper = new ObjectMapper();

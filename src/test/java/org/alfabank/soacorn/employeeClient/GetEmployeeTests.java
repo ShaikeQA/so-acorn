@@ -15,10 +15,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-@Feature("Создание сотрудника")
+import static io.qameta.allure.Allure.step;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@SpringBootTest
+@Epic("X-Clients - Сервис записи на прием к профильным специалистам.")
+@Feature("employee - Контроллер")
+@Story("Получить список сотрудников для компании")
 @DisplayName("GET:/employee")
 @Owner("Кшнякин Ринат")
-@SpringBootTest
 class GetEmployeeTests {
 
     @Autowired
@@ -67,9 +73,33 @@ class GetEmployeeTests {
                         .setCompany(activeCompany)
         );
 
-        List<GetEmployeeResponsePojo> employeeResponsePojo = getEmployeeApiSteps.getEmployee(
+        List<GetEmployeeResponsePojo> listEmployee = getEmployeeApiSteps.getEmployee(
                 activeCompany.getId(), 200);
 
+        step("Все сотрудники с параметром active == true", () -> {
+            var sumOfIsActives = false;
+            for (GetEmployeeResponsePojo employeeResponsePojo : listEmployee) {
+                if (!employeeResponsePojo.isActive()) {
+                    sumOfIsActives = false;
+                    break;
+                } else sumOfIsActives = true;
+            }
+            assertTrue(sumOfIsActives);
+        });
 
+        step("Количество сотрудников в ответе api совпадает с количеством сотрудников с isActive == true из БД", () ->
+                assertEquals(listEmployee.size(), employeeRepository.findByIsActive(true).size()));
+
+        step("В ответе api есть сотрудник, добавленный в бд с параметром isActive == true", () ->
+                assertEquals(1,
+                        listEmployee.stream().filter(employee -> employee.getId() == activeEmployee.getId()).count()
+                ));
+
+        step("В ответе api нет сотрудника, добавленного в бд с параметром isActive == false", () ->
+                assertEquals(
+                        0,
+                        listEmployee.stream().filter(employee -> employee.getId() == inactiveEmployee.getId()).count()
+                ));
     }
 }
+
