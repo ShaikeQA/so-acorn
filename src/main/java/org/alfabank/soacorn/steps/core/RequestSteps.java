@@ -3,7 +3,8 @@ package org.alfabank.soacorn.steps.core;
 import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;
-import io.restassured.config.RestAssuredConfig;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -12,15 +13,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
 @Component
 @RequiredArgsConstructor
 public class RequestSteps {
 
-    private final JsonPretty jsonPretty;
+    private ByteArrayOutputStream REQUEST_LOGS;
+    private ByteArrayOutputStream RESPONSE_LOGS;
 
-    RestAssuredConfig restAssuredConfig;
     /**
      * Базовый url для отправки запроса.
      */
@@ -41,7 +45,7 @@ public class RequestSteps {
 
     @PostConstruct
     public void init() {
-        restAssuredConfig = RestAssured.config()
+        RestAssured.config = RestAssured.config()
                 .httpClient(HttpClientConfig.httpClientConfig()
                         .setParam("http.connection.timeout", HTTP_CONNECT_TIMEOUT)
                         .setParam("http.socket.timeout", HTTP_SOCKET_TIMEOUT));
@@ -62,20 +66,14 @@ public class RequestSteps {
      * Тест прекращает работу и будет отмечен как не пройденный
      */
     public <T> T execute(Method method, String url, RequestSpecification requestSpecification, int expectedStatusCode, Class<T> responseClass) {
+        requestSpecification = updateRequestSpecForLogs(requestSpecification);
         if (!url.startsWith("http")) {
             url = BASE_URL + url;
         }
         try {
-            Response response = requestSpecification
-                    .config(restAssuredConfig)
-                    .log().all()
-                    .request(method, url);
-
-            Allure.addAttachment(
-                    "Ответ сервиса.json", "application/json",
-                    jsonPretty.pretty(response.getBody().asString())
-            );
-            response.then().log().all().statusCode(expectedStatusCode);
+            Response response = requestSpecification.request(method, url);
+            allureLogRequestAndResponse();
+            response.then().statusCode(expectedStatusCode);
             return response.as(responseClass);
         } catch (Exception e) {
             fail("Ошибка отправки запроса по причине: " + e);
@@ -97,25 +95,33 @@ public class RequestSteps {
      * Тест прекращает работу и будет отмечен как не пройденный
      */
     public Response execute(Method method, String url, RequestSpecification requestSpecification, int expectedStatusCode) {
+        requestSpecification = updateRequestSpecForLogs(requestSpecification);
         if (!url.startsWith("http")) {
             url = BASE_URL + url;
         }
         try {
-            Response response = requestSpecification
-                    .config(restAssuredConfig)
-                    .log().all()
-                    .request(method, url);
-
-            Allure.addAttachment(
-                    "Ответ сервиса.json", "application/json",
-                    jsonPretty.pretty(response.getBody().asString())
-            );
+            Response response = requestSpecification.request(method, url);
+            allureLogRequestAndResponse();
             response.then().statusCode(expectedStatusCode).log().all();
             return response;
         } catch (Exception e) {
             fail("Ошибка отправки запроса по причине: " + e);
             return null;
         }
+    }
+
+    private RequestSpecification updateRequestSpecForLogs(RequestSpecification requestSpecification) {
+        REQUEST_LOGS = new ByteArrayOutputStream();
+        RESPONSE_LOGS = new ByteArrayOutputStream();
+        PrintStream requestPrintStream = new PrintStream(REQUEST_LOGS);
+        PrintStream responsePrintStream = new PrintStream(RESPONSE_LOGS);
+        return requestSpecification.filters(new RequestLoggingFilter(requestPrintStream),
+                new ResponseLoggingFilter(responsePrintStream));
+    }
+
+    private void allureLogRequestAndResponse() {
+        Allure.addAttachment("Request", REQUEST_LOGS.toString());
+        Allure.addAttachment("Response", RESPONSE_LOGS.toString());
     }
 }
 

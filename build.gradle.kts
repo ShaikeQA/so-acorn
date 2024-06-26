@@ -7,8 +7,10 @@ plugins {
 
 group = "org.alfabank"
 version = "0.0.1-SNAPSHOT"
+
 val aspectJVersion = "1.9.22.1"
 val allureVersion = "2.25.0"
+val jacksonVersion = "2.17.1"
 
 val agent: Configuration by configurations.creating {
     isCanBeConsumed = true
@@ -40,7 +42,8 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("io.rest-assured:rest-assured:5.4.0")
     implementation("org.junit.jupiter:junit-jupiter-api:5.11.0-M2")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
     implementation("io.qameta.allure:allure-junit5")
     agent("org.aspectj:aspectjweaver:${aspectJVersion}")

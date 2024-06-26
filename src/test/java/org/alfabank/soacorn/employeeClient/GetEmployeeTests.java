@@ -88,7 +88,7 @@ class GetEmployeeTests {
         });
 
         step("Количество сотрудников в ответе api совпадает с количеством сотрудников с isActive == true из БД", () ->
-                assertEquals(listEmployee.size(), employeeRepository.findByIsActive(true).size()));
+                assertEquals(listEmployee.size(), employeeRepository.findEmployeeByIsActive(true).size()));
 
         step("В ответе api есть сотрудник, добавленный в бд с параметром isActive == true", () ->
                 assertEquals(1,

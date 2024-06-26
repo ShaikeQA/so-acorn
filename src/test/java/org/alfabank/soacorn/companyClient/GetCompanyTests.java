@@ -71,7 +71,7 @@ class GetCompanyTests {
         });
 
         step("Количество компаний с active == true в ответе api совпадает с БД", () ->
-                assertEquals(companies.size(), companyRepository.findByIsActive(true).size()));
+                assertEquals(companies.size(), companyRepository.findCompanyByIsActive(true).size()));
 
         step("В ответе api есть компания, добавленная в бд с параметром active == true", () ->
                 assertEquals(1,

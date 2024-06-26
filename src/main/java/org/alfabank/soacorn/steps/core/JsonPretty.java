@@ -3,21 +3,21 @@ package org.alfabank.soacorn.steps.core;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import jakarta.annotation.PostConstruct;
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-@Component
 public class JsonPretty {
 
-    ObjectMapper objectMapper;
+    static ObjectMapper objectMapper = new ObjectMapper()
+            .enable(SerializationFeature.INDENT_OUTPUT)
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .registerModule(new JavaTimeModule());
 
-    @PostConstruct
-    public void init() {
-        objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-    }
-
-    public String pretty(String json) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(objectMapper.readValue(json, Object.class));
+    public static String objectToJson(Object object) {
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

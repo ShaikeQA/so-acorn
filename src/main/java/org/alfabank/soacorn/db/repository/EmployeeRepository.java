@@ -3,6 +3,7 @@ package org.alfabank.soacorn.db.repository;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.alfabank.soacorn.db.entity.EmployeeEntity;
+import org.alfabank.soacorn.steps.core.JsonPretty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,15 +20,23 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Intege
     @Step("Поиск всех записей из таблицы employee")
     default List<EmployeeEntity> findAllEmployee() {
         List<EmployeeEntity> result = this.findAll();
-        Allure.attachment("Найдено записей", String.valueOf(result.size()));
+        Allure.addAttachment("Результат запроса", JsonPretty.objectToJson(result));
         return result;
     }
 
     @Step("Сохранение сотрудника в таблицу employee")
     default EmployeeEntity saveEmployee(EmployeeEntity employee) {
-        return this.save(employee);
+        EmployeeEntity result = this.save(employee);
+        Allure.addAttachment("Результат запроса", JsonPretty.objectToJson(result));
+        return result;
     }
 
     @Step("Получение всех сотрудников в базе employee с isActive == {isActive}")
+    default List<EmployeeEntity> findEmployeeByIsActive(Boolean isActive) {
+        List<EmployeeEntity> result = this.findByIsActive(isActive);
+        Allure.addAttachment("Результат запроса", JsonPretty.objectToJson(result));
+        return result;
+    }
+
     List<EmployeeEntity> findByIsActive(Boolean isActive);
 }
