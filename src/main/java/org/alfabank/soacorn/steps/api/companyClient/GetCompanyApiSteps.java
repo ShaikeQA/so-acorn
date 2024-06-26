@@ -1,10 +1,8 @@
 package org.alfabank.soacorn.steps.api.companyClient;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Method;
-import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.RequiredArgsConstructor;
 import org.alfabank.soacorn.pojo.companyClient.GetCompanyResponsePojo;

@@ -1,6 +1,5 @@
 package org.alfabank.soacorn.steps.api.employeeClient;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
