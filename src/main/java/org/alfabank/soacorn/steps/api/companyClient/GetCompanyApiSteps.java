@@ -1,4 +1,4 @@
-package org.alfabank.soacorn.steps.api;
+package org.alfabank.soacorn.steps.api.companyClient;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
@@ -7,19 +7,18 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.RequiredArgsConstructor;
-import org.alfabank.soacorn.pojo.company.GetCompanyResponsePojo;
+import org.alfabank.soacorn.pojo.companyClient.GetCompanyResponsePojo;
 import org.alfabank.soacorn.steps.api.core.RequestSteps;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static io.restassured.RestAssured.enableLoggingOfRequestAndResponseIfValidationFails;
 import static io.restassured.RestAssured.given;
 
 @Service
 @RequiredArgsConstructor
-public class CompanyApiSteps {
+public class GetCompanyApiSteps {
 
     private final RequestSteps requestSteps;
 

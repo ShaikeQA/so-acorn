@@ -1,35 +1,25 @@
-package org.alfabank.soacorn;
+package org.alfabank.soacorn.employeeClient;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.*;
 import org.alfabank.soacorn.db.entity.CompanyEntity;
 import org.alfabank.soacorn.db.entity.EmployeeEntity;
 import org.alfabank.soacorn.db.repository.CompanyRepository;
 import org.alfabank.soacorn.db.repository.EmployeeRepository;
-import org.alfabank.soacorn.pojo.employee.GetEmployeeResponsePojo;
-import org.alfabank.soacorn.pojo.employee.PostEmployeErrorResponsePojo;
-import org.alfabank.soacorn.pojo.employee.PostEmployeeRequestPojo;
-import org.alfabank.soacorn.steps.api.EmployeeApiSteps;
+import org.alfabank.soacorn.pojo.employeeClient.GetEmployeeResponsePojo;
+import org.alfabank.soacorn.steps.api.employeeClient.GetEmployeeApiSteps;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
-import static io.qameta.allure.Allure.step;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @Feature("Создание сотрудника")
-@DisplayName("POST:/employee")
+@DisplayName("GET:/employee")
 @Owner("Кшнякин Ринат")
 @SpringBootTest
-class EmployeeTests {
-
-    ObjectMapper mapper = new ObjectMapper();
+class GetEmployeeTests {
 
     @Autowired
     EmployeeRepository employeeRepository;
@@ -38,35 +28,13 @@ class EmployeeTests {
     CompanyRepository companyRepository;
 
     @Autowired
-    EmployeeApiSteps employeeApiSteps;
+    GetEmployeeApiSteps getEmployeeApiSteps;
 
     @Step("Предусловия")
     @BeforeEach
     public void setup() {
         employeeRepository.deleteAllEmployee();
         companyRepository.deleteAllCompany();
-    }
-
-    @Test
-    @DisplayName("Передан несуществующий companyId, ожидается ошибка,  Ожидается код ответа: 500")
-    @Severity(SeverityLevel.CRITICAL)
-    void createEmployeeWithUnknownCompanyId() throws IOException {
-
-        PostEmployeeRequestPojo postEmployeeRequestPojo = mapper.readValue(
-                Path.of("src/test/resources/body/PostEmployeeRequestWithUnknowCompanyId.json").toFile(),
-                PostEmployeeRequestPojo.class);
-
-        PostEmployeErrorResponsePojo errorResponsePojo = employeeApiSteps.createEmployeeWithUnknowCompanyId(
-                postEmployeeRequestPojo, 500);
-
-        step("Валдиация выходных параметров метода", () -> {
-            assertEquals("500", errorResponsePojo.getStatusCode());
-            assertEquals("Internal server error", errorResponsePojo.getMessage());
-        });
-
-        step("В базе не создалось записей", () -> {
-            assertEquals(0, employeeRepository.findAllEmployee().size());
-        });
     }
 
     @Test
@@ -99,7 +67,7 @@ class EmployeeTests {
                         .setCompany(activeCompany)
         );
 
-        List<GetEmployeeResponsePojo> employeeResponsePojo = employeeApiSteps.getEmployee(
+        List<GetEmployeeResponsePojo> employeeResponsePojo = getEmployeeApiSteps.getEmployee(
                 activeCompany.getId(), 200);
 
 

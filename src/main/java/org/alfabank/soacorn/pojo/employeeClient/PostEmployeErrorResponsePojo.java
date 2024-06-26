@@ -1,4 +1,4 @@
-package org.alfabank.soacorn.pojo.employee;
+package org.alfabank.soacorn.pojo.employeeClient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

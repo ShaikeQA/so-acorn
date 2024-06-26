@@ -1,4 +1,4 @@
-package org.alfabank.soacorn.pojo.auth;
+package org.alfabank.soacorn.pojo.authClient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

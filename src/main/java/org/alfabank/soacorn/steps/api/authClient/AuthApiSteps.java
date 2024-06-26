@@ -1,11 +1,11 @@
-package org.alfabank.soacorn.steps.api;
+package org.alfabank.soacorn.steps.api.authClient;
 
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.specification.RequestSpecification;
 import lombok.RequiredArgsConstructor;
-import org.alfabank.soacorn.pojo.auth.AuthLoginRequest;
-import org.alfabank.soacorn.pojo.auth.AuthLoginResponse;
+import org.alfabank.soacorn.pojo.authClient.AuthLoginRequest;
+import org.alfabank.soacorn.pojo.authClient.AuthLoginResponse;
 import org.alfabank.soacorn.steps.api.core.RequestSteps;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
