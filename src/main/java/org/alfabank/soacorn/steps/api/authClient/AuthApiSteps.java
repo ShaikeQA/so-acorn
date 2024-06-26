@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import static io.restassured.RestAssured.given;
+
 @Service
 @RequiredArgsConstructor
 public class AuthApiSteps {
