@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 @Repository
 public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer> {
 

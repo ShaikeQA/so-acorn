@@ -34,8 +34,8 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     compileOnly("org.projectlombok:lombok")
-    runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
+    runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("io.rest-assured:rest-assured:5.4.0")
@@ -44,8 +44,6 @@ dependencies {
     implementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
     implementation("io.qameta.allure:allure-junit5")
     agent("org.aspectj:aspectjweaver:${aspectJVersion}")
-
-
 }
 
 tasks.withType<Test> {

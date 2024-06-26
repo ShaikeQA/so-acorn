@@ -15,7 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.Duration;
 
 import static io.qameta.allure.Allure.step;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Epic("X-Clients - Сервис записи на прием к профильным специалистам.")
@@ -68,6 +69,6 @@ public class GetCompanyDeleteByIdApiStepsTests {
         assertNotNull(companyEntity);
         step("Значение deletedAt находится в диапазоне 10 секунд, после значения createTimestamp", () ->
                 assertTrue(companyEntity.getDeletedAt().isAfter(companyEntity.getCreateTimestamp()) &&
-                          companyEntity.getDeletedAt().isBefore(companyEntity.getCreateTimestamp().plusSeconds(10))));
+                        companyEntity.getDeletedAt().isBefore(companyEntity.getCreateTimestamp().plusSeconds(10))));
     }
 }
