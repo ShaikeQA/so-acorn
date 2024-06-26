@@ -14,7 +14,7 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer>
 
     @Step("Получение компании по id = {id}")
     default CompanyEntity findCompanyById(int id){
-        return this.findById(id).orElse(fail("Компания с id = " + id + " не найдена"));
+        return this.findById(id).orElse(null);
     }
 
     @Step("Удаление всех компаний из таблицы company")

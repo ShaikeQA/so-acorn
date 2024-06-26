@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Duration;
 
+import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -58,17 +59,15 @@ public class GetCompanyDeleteByIdApiStepsTests {
                 .atMost(Duration.ofSeconds(10))
                 .pollInterval(Duration.ofSeconds(2))
                 .untilAsserted(() -> assertNotNull(
-                                companyRepository.findCompanyById(activeCompany.getId()).getDeletedAt()
+                        companyRepository.findCompanyById(activeCompany.getId()).getDeletedAt()
                 ));
 
         CompanyEntity companyEntity = companyRepository
                 .findCompanyById(activeCompany.getId());
 
         assertNotNull(companyEntity);
-        assertTrue(
-                companyEntity.getDeletedAt().isAfter(companyEntity.getCreateTimestamp()) &&
-                        companyEntity.getDeletedAt().isBefore(companyEntity.getCreateTimestamp().plusSeconds(10))
-        );
-
+        step("Значение deletedAt находится в диапазоне 10 секунд, после значения createTimestamp", () ->
+                assertTrue(companyEntity.getDeletedAt().isAfter(companyEntity.getCreateTimestamp()) &&
+                          companyEntity.getDeletedAt().isBefore(companyEntity.getCreateTimestamp().plusSeconds(10))));
     }
 }

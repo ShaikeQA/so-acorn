@@ -8,13 +8,17 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
 @Component
+@RequiredArgsConstructor
 public class RequestSteps {
+
+    private final JsonPretty jsonPretty;
 
     RestAssuredConfig restAssuredConfig;
     /**
@@ -29,8 +33,8 @@ public class RequestSteps {
     @Value("${rest.assured.http.connection.timeout}")
     private Integer HTTP_CONNECT_TIMEOUT;
     /**
-     *  Максимальное время ожидания (в миллисекундах), доступное для чтения
-     *  данных из открытого сокета или для записи в открытый сокет после установки соединения.
+     * Максимальное время ожидания (в миллисекундах), доступное для чтения
+     * данных из открытого сокета или для записи в открытый сокет после установки соединения.
      */
     @Value("${rest.assured.http.socket.timeout}")
     private Integer HTTP_SOCKET_TIMEOUT;
@@ -55,7 +59,7 @@ public class RequestSteps {
      * @param responseClass        Класс, в который нужно преобразовать ответ. Например: AnyClassPojo.class
      * @return Объект класса responseClass.
      * При возникновении исключения. Вызов метода JUnit5 fail().
-     *                   Тест прекращает работу и будет отмечен как не пройденный
+     * Тест прекращает работу и будет отмечен как не пройденный
      */
     public <T> T execute(Method method, String url, RequestSpecification requestSpecification, int expectedStatusCode, Class<T> responseClass) {
         if (!url.startsWith("http")) {
@@ -66,7 +70,11 @@ public class RequestSteps {
                     .config(restAssuredConfig)
                     .log().all()
                     .request(method, url);
-            Allure.addAttachment("Ответ сервиса.json","application/json", response.getBody().asString());
+
+            Allure.addAttachment(
+                    "Ответ сервиса.json", "application/json",
+                    jsonPretty.pretty(response.getBody().asString())
+            );
             response.then().log().all().statusCode(expectedStatusCode);
             return response.as(responseClass);
         } catch (Exception e) {
@@ -74,6 +82,7 @@ public class RequestSteps {
             return null;
         }
     }
+
     /**
      * Отправка http запроса.
      *
@@ -85,7 +94,7 @@ public class RequestSteps {
      * @param expectedStatusCode   Ожидаемый http код ответа.
      * @return Объект класса Response.class.
      * При возникновении исключения. Вызов метода JUnit5 fail().
-     *                   Тест прекращает работу и будет отмечен как не пройденный
+     * Тест прекращает работу и будет отмечен как не пройденный
      */
     public Response execute(Method method, String url, RequestSpecification requestSpecification, int expectedStatusCode) {
         if (!url.startsWith("http")) {
@@ -96,7 +105,11 @@ public class RequestSteps {
                     .config(restAssuredConfig)
                     .log().all()
                     .request(method, url);
-            Allure.addAttachment("Ответ сервиса.json","application/json", response.getBody().asString());
+
+            Allure.addAttachment(
+                    "Ответ сервиса.json", "application/json",
+                    jsonPretty.pretty(response.getBody().asString())
+            );
             response.then().statusCode(expectedStatusCode).log().all();
             return response;
         } catch (Exception e) {
