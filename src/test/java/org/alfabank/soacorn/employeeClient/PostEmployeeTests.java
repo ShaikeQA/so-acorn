@@ -47,7 +47,7 @@ public class PostEmployeeTests {
 
     @Test
     @DisplayName("Передан несуществующий companyId, ожидается ошибка,  Ожидается код ответа: 500")
-    @Severity(SeverityLevel.CRITICAL)
+    @Severity(SeverityLevel.MINOR)
     void createEmployeeWithUnknownCompanyId() throws IOException {
 
         PostEmployeeRequestPojo postEmployeeRequestPojo = mapper.readValue(

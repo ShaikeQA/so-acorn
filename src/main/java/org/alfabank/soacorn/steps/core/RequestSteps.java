@@ -1,4 +1,4 @@
-package org.alfabank.soacorn.steps.api.core;
+package org.alfabank.soacorn.steps.core;
 
 import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.alfabank.soacorn.pojo.employeeClient.PostEmployeErrorResponsePojo;
 import org.alfabank.soacorn.pojo.employeeClient.PostEmployeeRequestPojo;
 import org.alfabank.soacorn.steps.api.authClient.AuthApiSteps;
-import org.alfabank.soacorn.steps.api.core.RequestSteps;
+import org.alfabank.soacorn.steps.core.RequestSteps;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

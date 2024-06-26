@@ -7,13 +7,13 @@ plugins {
 
 group = "org.alfabank"
 version = "0.0.1-SNAPSHOT"
-//val aspectJVersion = "1.9.22.1"
+val aspectJVersion = "1.9.22.1"
 val allureVersion = "2.25.0"
 
-//val agent: Configuration by configurations.creating {
-//    isCanBeConsumed = true
-//    isCanBeResolved = true
-//}
+val agent: Configuration by configurations.creating {
+    isCanBeConsumed = true
+    isCanBeResolved = true
+}
 
 java {
     toolchain {
@@ -43,15 +43,15 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
     implementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
     implementation("io.qameta.allure:allure-junit5")
-//    agent("org.aspectj:aspectjweaver:${aspectJVersion}")
+    agent("org.aspectj:aspectjweaver:${aspectJVersion}")
 
 
 }
 
 tasks.withType<Test> {
-//    jvmArgs = listOf(
-//        "-javaagent:${agent.singleFile}"
-//    )
+    jvmArgs = listOf(
+        "-javaagent:${agent.singleFile}"
+    )
     useJUnitPlatform()
     ignoreFailures = true
     finalizedBy("allureServe")

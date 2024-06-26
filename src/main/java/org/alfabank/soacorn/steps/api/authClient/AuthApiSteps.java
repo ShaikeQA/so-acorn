@@ -6,7 +6,7 @@ import io.restassured.specification.RequestSpecification;
 import lombok.RequiredArgsConstructor;
 import org.alfabank.soacorn.pojo.authClient.AuthLoginRequest;
 import org.alfabank.soacorn.pojo.authClient.AuthLoginResponse;
-import org.alfabank.soacorn.steps.api.core.RequestSteps;
+import org.alfabank.soacorn.steps.core.RequestSteps;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
