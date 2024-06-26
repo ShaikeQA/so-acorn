@@ -102,7 +102,7 @@ public class RequestSteps {
         try {
             Response response = requestSpecification.request(method, url);
             allureLogRequestAndResponse();
-            response.then().statusCode(expectedStatusCode).log().all();
+            response.then().statusCode(expectedStatusCode);
             return response;
         } catch (Exception e) {
             fail("Ошибка отправки запроса по причине: " + e);
