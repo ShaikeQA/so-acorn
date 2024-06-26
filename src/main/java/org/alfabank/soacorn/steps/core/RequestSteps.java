@@ -1,5 +1,6 @@
 package org.alfabank.soacorn.steps.core;
 
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.config.HttpClientConfig;
 import io.restassured.config.RestAssuredConfig;
@@ -65,7 +66,8 @@ public class RequestSteps {
                     .config(restAssuredConfig)
                     .log().all()
                     .request(method, url);
-            response.then().statusCode(expectedStatusCode).log().all();
+            Allure.addAttachment("Ответ сервиса.json","application/json", response.getBody().asString());
+            response.then().log().all().statusCode(expectedStatusCode);
             return response.as(responseClass);
         } catch (Exception e) {
             fail("Ошибка отправки запроса по причине: " + e);
@@ -94,6 +96,7 @@ public class RequestSteps {
                     .config(restAssuredConfig)
                     .log().all()
                     .request(method, url);
+            Allure.addAttachment("Ответ сервиса.json","application/json", response.getBody().asString());
             response.then().statusCode(expectedStatusCode).log().all();
             return response;
         } catch (Exception e) {

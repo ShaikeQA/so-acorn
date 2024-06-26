@@ -30,21 +30,12 @@ public class GetCompanyApiSteps {
         RequestSpecification requestSpecification = given()
                 .queryParam("active", active);
 
-        Response response = requestSteps.execute(
+        return requestSteps.execute(
                 Method.GET,
                 GET_COMPANY_URN,
                 requestSpecification,
                 expectedStatusCode
-        );
-
-        List<GetCompanyResponsePojo> result = response.as(new TypeRef<>() {
+        ).as(new TypeRef<>() {
         });
-
-        for (GetCompanyResponsePojo getCompanyResponsePojo : result) {
-            Allure.addAttachment("Результат", getCompanyResponsePojo.toString());
-        }
-
-        return result;
     }
-
 }

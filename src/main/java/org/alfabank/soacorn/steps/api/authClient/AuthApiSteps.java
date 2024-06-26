@@ -1,5 +1,6 @@
 package org.alfabank.soacorn.steps.api.authClient;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.specification.RequestSpecification;
@@ -26,6 +27,7 @@ public class AuthApiSteps {
     @Value("${urn.post.x-clients.login.auth}")
     private String URN;
 
+    @Step("Авторизация")
     public String getAdminToken() {
         RequestSpecification requestSpecification = given()
                 .contentType(ContentType.JSON)

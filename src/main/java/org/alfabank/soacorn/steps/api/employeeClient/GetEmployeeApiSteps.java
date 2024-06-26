@@ -30,19 +30,13 @@ public class GetEmployeeApiSteps {
         RequestSpecification requestSpecification = given()
                 .queryParam("company", companyId);
 
-        Response response = requestSteps.execute(
+        return requestSteps.execute(
                 Method.GET,
                 GET_EMPLOYEE_URN,
                 requestSpecification,
                 expectedStatusCode
-        );
-
-        List<GetEmployeeResponsePojo> result = response.as(new TypeRef<>() {
+        ).as(new TypeRef<>() {
         });
-
-        Allure.addAttachment("Результат", result.toString());
-
-        return result;
     }
 
 }

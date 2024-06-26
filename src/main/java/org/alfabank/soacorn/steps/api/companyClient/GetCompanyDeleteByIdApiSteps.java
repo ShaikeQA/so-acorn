@@ -2,6 +2,7 @@ package org.alfabank.soacorn.steps.api.companyClient;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.specification.RequestSpecification;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import static io.restassured.RestAssured.given;
 
 @Service
 @RequiredArgsConstructor
-public class GetCompanyDeleteById {
+public class GetCompanyDeleteByIdApiSteps {
 
     private final RequestSteps requestSteps;
 
@@ -27,18 +28,16 @@ public class GetCompanyDeleteById {
     @Step("Удаление компании с id == {companyId}. Ожидается код ответа {expectedStatusCode}")
     public GetCompanyDeleteByIdPojo deleteCompany(int companyId, int expectedStatusCode) {
         RequestSpecification requestSpecification = given()
-                .pathParam("companyId", companyId)
-                .header("x-client-token", authApiSteps.getAdminToken());
+                .pathParam("id", companyId)
+                .header("x-client-token", authApiSteps.getAdminToken())
+                .contentType(ContentType.JSON);
 
-        GetCompanyDeleteByIdPojo result = requestSteps.execute(
+        return requestSteps.execute(
                 Method.GET,
                 GET_COMPANY_URN,
                 requestSpecification,
                 expectedStatusCode,
                 GetCompanyDeleteByIdPojo.class
         );
-
-        Allure.addAttachment("Результат", result.toString());
-        return result;
     }
 }

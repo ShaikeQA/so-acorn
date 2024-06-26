@@ -33,17 +33,13 @@ public class PostEmployeeApiSteps {
                 .body(postEmployeeRequestPojo)
                 .header("x-client-token", authApiSteps.getAdminToken());
 
-        PostEmployeErrorResponsePojo result = requestSteps.execute(
+        return requestSteps.execute(
                 Method.POST,
                 POST_EMPLOYEE_URN,
                 requestSpecification,
                 expectedStatusCode,
                 PostEmployeErrorResponsePojo.class
         );
-
-        Allure.addAttachment("Результат", result.toString());
-
-        return result;
     }
 
 }

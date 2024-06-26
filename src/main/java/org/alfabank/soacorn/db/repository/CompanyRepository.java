@@ -7,8 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 @Repository
 public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer> {
+
+    @Step("Получение компании по id = {id}")
+    default CompanyEntity findCompanyById(int id){
+        return this.findById(id).orElse(fail("Компания с id = " + id + " не найдена"));
+    }
 
     @Step("Удаление всех компаний из таблицы company")
     default void deleteAllCompany() {
