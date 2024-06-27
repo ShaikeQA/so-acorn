@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static com.codeborne.selenide.Condition.text;
 import static io.qameta.allure.Allure.step;
 
-
+@DisplayName("Авторизация")
 @SpringBootTest
 public class FrontAuthTests {
 

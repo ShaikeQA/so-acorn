@@ -71,9 +71,9 @@ public class RequestSteps {
             url = BASE_URL + url;
         }
         try {
-            Response response = requestSpecification.request(method, url);
+            Response response = requestSpecification.log().all().request(method, url);
             allureLogRequestAndResponse();
-            response.then().statusCode(expectedStatusCode);
+            response.then().log().all().statusCode(expectedStatusCode);
             return response.as(responseClass);
         } catch (Exception e) {
             fail("Ошибка отправки запроса по причине: " + e);
@@ -100,9 +100,9 @@ public class RequestSteps {
             url = BASE_URL + url;
         }
         try {
-            Response response = requestSpecification.request(method, url);
+            Response response = requestSpecification.log().all().request(method, url);
             allureLogRequestAndResponse();
-            response.then().statusCode(expectedStatusCode);
+            response.then().log().all().statusCode(expectedStatusCode);
             return response;
         } catch (Exception e) {
             fail("Ошибка отправки запроса по причине: " + e);
