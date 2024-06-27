@@ -47,6 +47,9 @@ dependencies {
     implementation(platform("io.qameta.allure:allure-bom:$allureVersion"))
     implementation("io.qameta.allure:allure-junit5")
     agent("org.aspectj:aspectjweaver:${aspectJVersion}")
+    implementation("io.qameta.allure:allure-selenide:2.27.0")
+    implementation("com.codeborne:selenide:7.3.3")
+
 }
 
 tasks.withType<Test> {
